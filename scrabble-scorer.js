@@ -82,20 +82,14 @@ let scrabbleScore = function(word, newPointStructure){
 	return oldScrabbleScorer(word);
 };
 
-const scoringAlgorithms = [ {
-  name: "0 - simpleScore: ",
-  description: "One point per character",
-  scorerFunction:  simpleScore(word)
-},
-{name: "1 - vowelBonusScore: ",
-  description: "One point per character",
-  scorerFunction: vowelBonusScore(word)
-},
-{
-  name: "2 - scrabbleScore: ",
-  description: "One point per character",
-  scorerFunction: scrabbleScore(word)
-}];
+const scoringAlgorithms = [ Object({ name: '0 - simpleScore: ',
+                                     description: 'One point per character',
+                                     scorerFunction: 0 }),
+                            Object({ name: '1 - vowelBonusScore: ', 
+                                     description: 'One point per character', 
+                                     scorerFunction: 0 }),
+                            Object({ name: '2 - scrabbleScore: ', 
+                                     description: 'One point per character', scorerFunction: '' })];
 
 function scorerPrompt() {
 
