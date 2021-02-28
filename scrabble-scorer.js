@@ -37,33 +37,19 @@ function initialPrompt() {
    let word = input.question("Enter a word to score: ");
    console.log(oldScrabbleScorer(word));
 };
+
 /*
-function simple(word) {
-  return word.length;
-}
-
-function vowelBonus(word) {
-  let points = 0;
-
-  for (let i = 0; i < word.length; i++) {
-    if (word.charAt(i).match(/[aeiou]/gi)) {
-      points += 3;
-
-    } else {
-      points += 1;
-    }
-  }
-  return points;
-}
-
-function scrabble(word, newPointStructure) {
-	return oldScrabbleScorer(word);
-}
+Function: 'simpleScore',
+Description: 'Each letter is worth 1 point'
 */
 let simpleScore = function(word){
   return word.length;
 };
 
+/*
+Function: 'vowelBonusScore',
+Description: 'Vowels are 3 pts, consonants are 1 pt.'
+*/
 let vowelBonusScore =function(word){
   let points = 0;
 
@@ -78,8 +64,17 @@ let vowelBonusScore =function(word){
   return points;
 };
 
-let scrabbleScore = function(word, newPointStructure){
-	return oldScrabbleScorer(word);
+/*
+Function: 'scrabbleScore',
+Description: 'The traditional scoring algorithm.'
+*/
+let scrabbleScore = function(word){
+	let score =0;
+  for(let i = 0; i < word.length; i++){
+   let char = word[i];
+    score += newPointStructure[char];
+  }
+  return score;
 };
 
 const scoringAlgorithms = [Object({name: 'Simple Score',
@@ -115,21 +110,19 @@ function scorerPrompt() {
         // console.log("Score for " + word +": "+`${simple(word)}`);
         console.log("algorithm name: ", scoringAlgorithms[0].name);
         console.log("algorithm description: ", scoringAlgorithms[0].description);
-        console.log("Score for " + word +": "+`${simpleScore(word)}`);
-        // console.log("algorithmscorerFunction: ", scoringAlgorithms[0].scorerFunction(word));
+        console.log("Score for " + word +": ", scoringAlgorithms[0].scoringFunction(word));
         break;
       //1- Vowel Bonus: Vowels are worth 3 point
       case "1":
         console.log("algorithm name: ", scoringAlgorithms[1].name);
         console.log("algorithm description: ", scoringAlgorithms[1].description);
-        console.log("Score for " + word + ": " + `${vowelBonusScore(word)}`);
+        console.log("Score for " + word +": ", scoringAlgorithms[1].scoringFunction(word));
         break;
       //2 - Scrabble: Uses scrabble point system
       case "2":
         console.log("algorithm name: ", scoringAlgorithms[2].name);
-        console.log("algorithm description: ", scoringAlgorithms[2].description);
-        // console.log("Score for " + word +": "+`${scrabble(word)}`);
-        console.log("Score for " + word +": "+scrabbleScore(word));
+        console.log("algorithm description: ", scoringAlgorithms[2].description)
+        console.log("Score for " + word +": ", scoringAlgorithms[2].scoringFunction(word));
         break;
     }//END SWITCH
   } else {
@@ -172,7 +165,6 @@ function runProgram() {
   // console.log(oldPointStructure);
   // initialPrompt();
   scorerPrompt();
-  // console.log(newPointStructure);
 }
 
 // Don't write any code below this line //
